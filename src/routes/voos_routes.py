@@ -17,7 +17,7 @@ def cria_voo(voo: Voo):
         hora_atual = datetime.now()
         hora_limite = hora_atual + timedelta(hours=LIMITE_HORAS)
         no_horario_limite = voo.data_saida <= hora_limite
-        print("horario_limite", no_horario_limite, hora_limite)
+        print("horario_limite", no_horario_limite, ' hora atual:', hora_atual, ' hora limite', hora_limite)
         if no_horario_limite:
             return JSONResponse(
                 content={
@@ -33,7 +33,7 @@ def cria_voo(voo: Voo):
 
 @voos_router.get("/vendas")
 def lista_voos_venda():
-    LIMITE_HORAS = 3
+    LIMITE_HORAS = 2
     with get_session() as session:
         hora_limite = datetime.now() + timedelta(hours=LIMITE_HORAS)
         statement = select(Voo).where(Voo.data_saida >= hora_limite)
